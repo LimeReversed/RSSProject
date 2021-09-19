@@ -10,9 +10,12 @@ export class RssObject {
 }
 
 export class RssList {
-  #rssSources;
   #intervalFunction;
   #interval = 10000;
+  
+  //Needed to be public in order for the component to react to changes in it.
+  rssSources;
+  
   rssObjects = [];
   sortedByDate = true;
 
@@ -107,7 +110,7 @@ export class RssList {
   #startNewInterval = () => {
     clearInterval(this.#intervalFunction);
     this.#intervalFunction = setInterval(() => {
-      this.init(this.#rssSources);
+      this.init(this.rssSources);
     }, this.#interval);
   };
 
@@ -124,7 +127,7 @@ export class RssList {
 
   init = async (rssSources) => {
     console.log("Reached init");
-    this.#rssSources = rssSources;
+    this.rssSources = rssSources;
     let allXmlElements = await this.#getXmlFromMultipleUrls(rssSources);
     let allRssObjects = [];
     allXmlElements.forEach((el) => {
@@ -145,7 +148,6 @@ export class RssList {
       return a.title.localeCompare(b.title, 'se');
     });
     this.sortedByDate = false;
-    console.log(this.rssObjects)
   };
 
   sortByDate = () => {
@@ -159,20 +161,21 @@ export class RssList {
 
   add = async (url) => {
     let zursUrl = this.#createZursUrl(url);
-    this.#rssSources.push(zursUrl);
-    document.cookie = `rssSources=${JSON.stringify(this.#rssSources)}`;
-    this.init(this.#rssSources);
+    this.rssSources.push(zursUrl);
+    document.cookie = `rssSources=${JSON.stringify(this.rssSources)}`;
+    await this.init(this.rssSources);
     this.#startNewInterval();
   };
 
   remove = async (index) => {
     this.rssSources.splice(index, 1);
     document.cookie = `rssSources=${JSON.stringify(this.rssSources)}`;
-    this.init(this.#rssSources);
+    await this.init(this.rssSources);
     this.#startNewInterval();
+    
   };
 
   getAddedUrls = () => {
-    return this.#rssSources.map((el) => this.#extractLinkFromZursUrl(el));
+    return this.rssSources.map((el) => this.#extractLinkFromZursUrl(el));
   };
 }

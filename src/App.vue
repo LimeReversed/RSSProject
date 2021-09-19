@@ -4,25 +4,25 @@
       <div class="title">
         <h1 :style="{ color: 'plum' }">RSS Feed</h1>
         <ion-icon
-          name="add-circle-outline"
+          name="add-outline"
           class="icon"
-          @click="() => rssList.add()"
+          @click="add"
         ></ion-icon>
         <ion-icon
-          name="close-circle-outline"
+          name="trash-outline"
           class="icon"
           @click="() => (removeForm = true)"
         ></ion-icon>
       </div>
       <div :style="{ display: 'flex', flexDirection: 'row' }">
         <p :style="{ margin: '0px' }" @click="() => {rssList.sortByTitle(); this.$forceUpdate()} ">
-          Sortera efter titel
+          Sortera titel
         </p>
         <p
           :style="{ margin: '0px', marginLeft: '20px' }"
           @click="() => rssList.sortByDate()"
         >
-          Sortera efter tid
+          Sortera tid
         </p>
       </div>
       <RSSItem
@@ -65,7 +65,7 @@ export default {
   data() {
     return {
       removeForm: false,
-      rssList: Object,
+      rssList: Object
     };
   },
   methods: {
@@ -74,8 +74,9 @@ export default {
       if (url != null) {
         this.rssList.add(url);
       }
-    }   
+    } 
   },
+
   async mounted() {
     let cookie = getCookie("rssSources");
     let rssSources = [];
@@ -83,7 +84,7 @@ export default {
       "https://getrss.zurs.se/?url=aHR0cHM6Ly9yc3MuYWZ0b25ibGFkZXQuc2UvcnNzMi9zbWFsbC9wYWdlcy9zZWN0aW9ucy9zZW5hc3Rlbnl0dC8="
     );
 
-    if (cookie != "") {
+    if (cookie && cookie != "") {
       rssSources = JSON.parse(cookie);
     }
 
@@ -110,7 +111,7 @@ body,
 }
 
 .RSSContainer {
-  background-color: rgba(0, 0, 0, 1);
+  background-color: rgba(0, 0, 0, 0.9);
   padding: 30px 60px 0px 60px;
   overflow: auto;
 }
@@ -124,9 +125,9 @@ body,
 
 .icon {
   color: white;
-  width: 30px;
-  height: 30px;
-  margin-left: 10px;
+  width: 25px;
+  height: 25px;
+  margin-left: 20px;
 }
 
 .icon:hover {
