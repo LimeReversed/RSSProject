@@ -46,7 +46,7 @@ export class RssList {
   };
 
   #getXmlFromUrl = async (url) => {
-    const fetchResult = await fetch(url);
+    const fetchResult = await fetch(url, { mode: "cors" });
     const reader = fetchResult.body.getReader();
     const stream = await this.#getStream(reader);
     const streamResponse = await new Response(stream, {
@@ -136,20 +136,23 @@ export class RssList {
     if (this.sortedByDate) {
       this.sortByDate();
     } else {
-      this.sortByTitle;
+      this.sortByTitle();
     }
   };
 
   sortByTitle = () => {
     this.rssObjects.sort((a, b) => {
-      return a.title > b.title;
+      return a.title.localeCompare(b.title, 'se');
     });
     this.sortedByDate = false;
+    console.log(this.rssObjects)
   };
 
   sortByDate = () => {
     this.rssObjects.sort((a, b) => {
-      return a.pubDate < b.pubDate;
+      var dateA = new Date(a.pubDate);
+      var dateB = new Date(b.pubDate);
+      return dateB.valueOf() - dateA.valueOf();
     });
     this.sortedByDate = true;
   };

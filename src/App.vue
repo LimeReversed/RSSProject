@@ -15,7 +15,7 @@
         ></ion-icon>
       </div>
       <div :style="{ display: 'flex', flexDirection: 'row' }">
-        <p :style="{ margin: '0px' }" @click="() => rssList.sortByTitle()">
+        <p :style="{ margin: '0px' }" @click="() => {rssList.sortByTitle(); this.$forceUpdate()} ">
           Sortera efter titel
         </p>
         <p
@@ -74,7 +74,7 @@ export default {
       if (url != null) {
         this.rssList.add(url);
       }
-    },
+    }   
   },
   async mounted() {
     let cookie = getCookie("rssSources");
