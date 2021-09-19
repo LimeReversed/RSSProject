@@ -18,11 +18,18 @@
         <p :style="{ margin: '0px' }" @click="() => rssList.sortByTitle()">
           Sortera efter titel
         </p>
-        <p :style="{ margin: '0px', marginLeft: '20px' }" @click="() => rssList.sortByDate()">
+        <p
+          :style="{ margin: '0px', marginLeft: '20px' }"
+          @click="() => rssList.sortByDate()"
+        >
           Sortera efter tid
         </p>
       </div>
-      <RSSItem v-for="el in rssList.rssObjects" :key="el.articleId" :item="el" />
+      <RSSItem
+        v-for="el in rssList.rssObjects"
+        :key="el.articleId"
+        :item="el"
+      />
     </div>
     <div v-if="removeForm" class="RSSContainer">
       <div class="title">
@@ -34,7 +41,11 @@
         ></ion-icon>
         <h1 :style="{ color: 'plum', marginLeft: '20px' }">Remove Urls</h1>
       </div>
-      <p v-for="(el, i) in rssList.getAddedUrls()" :key="el" @click="() => rssList.remove(i)">
+      <p
+        v-for="(el, i) in rssList.getAddedUrls()"
+        :key="el"
+        @click="() => rssList.remove(i)"
+      >
         {{ el }}
       </p>
     </div>
@@ -42,9 +53,7 @@
 </template>
 
 <script>
-import {
-  RssList
-} from "./services/rssService";
+import { RssList } from "./services/rssService";
 import { getCookie } from "./services/cookieService";
 import RSSItem from "./components/RSSItem.vue";
 
@@ -56,20 +65,29 @@ export default {
   data() {
     return {
       removeForm: false,
-      rssList: Object
+      rssList: Object,
     };
+  },
+  methods: {
+    add() {
+      var url = prompt("Enter Rss URL");
+      if (url != null) {
+        this.rssList.add(url);
+      }
+    },
   },
   async mounted() {
     let cookie = getCookie("rssSources");
     let rssSources = [];
-    rssSources.push("https://getrss.zurs.se/?url=aHR0cHM6Ly9yc3MuYWZ0b25ibGFkZXQuc2UvcnNzMi9zbWFsbC9wYWdlcy9zZWN0aW9ucy9zZW5hc3Rlbnl0dC8=");
+    rssSources.push(
+      "https://getrss.zurs.se/?url=aHR0cHM6Ly9yc3MuYWZ0b25ibGFkZXQuc2UvcnNzMi9zbWFsbC9wYWdlcy9zZWN0aW9ucy9zZW5hc3Rlbnl0dC8="
+    );
 
     if (cookie != "") {
       rssSources = JSON.parse(cookie);
     }
 
     this.rssList = new RssList(rssSources);
-    
   },
 };
 </script>
