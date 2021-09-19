@@ -87,3 +87,16 @@ test("Remove element in the middle of rssList, correct element removed", () => {
     expect(rssList.rssObjects).toEqual(expected);
   }, 1000);
 });
+
+test("Remove last element, correct element removed", () => {
+  let source =
+    "https://getrss.zurs.se/?url=aHR0cHM6Ly9yc3MuYWZ0b25ibGFkZXQuc2UvcnNzMi9zbWFsbC9wYWdlcy9zZWN0aW9ucy9zZW5hc3Rlbnl0dC8=";
+  let sourceList = [source, "hej", "hej2"];
+  let expected = [source, "hej"];
+  let rssList = new RssList(sourceList);
+  rssList.remove(2);
+
+  setTimeout(() => {
+    expect(rssList.rssObjects).toEqual(expected);
+  }, 1000);
+});
