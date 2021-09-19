@@ -7,8 +7,7 @@ test("Initialize RssList with one source, rssList contains one element", () => {
   let rssList = new RssList(sourceList);
   setTimeout(() => {
     expect(rssList.rssObjects.length).toBe(1);
-  }, 1000)
-  
+  }, 1000);
 });
 
 test("Initialize RssList with one source then adds another source, rssList contains two elements", () => {
@@ -22,8 +21,18 @@ test("Initialize RssList with one source then adds another source, rssList conta
 
   setTimeout(() => {
     expect(rssList.rssObjects.length).toBe(2);
-  }, 1000)
+  }, 1000);
 });
+
+// test("Test where await isn't working", async () => {
+//   let source =
+//     "https://getrss.zurs.se/?url=aHR0cHM6Ly9yc3MuYWZ0b25ibGFkZXQuc2UvcnNzMi9zbWFsbC9wYWdlcy9zZWN0aW9ucy9zZW5hc3Rlbnl0dC8=";
+//   let sourceList = [source];
+//   let rssList = new RssList();
+//   await rssList.init(sourceList);
+
+//   expect(rssList.rssObjects.length).toBe(1);
+// });
 
 test("Initialize RssList with empty array, rssList contains zero elements", () => {
   let sourceList = [];
@@ -31,7 +40,7 @@ test("Initialize RssList with empty array, rssList contains zero elements", () =
 
   setTimeout(() => {
     expect(rssList.rssObjects.length).toBe(0);
-  }, 1000)
+  }, 1000);
 });
 
 test("Initialize RssList with no sources, rssList contains zero elements", () => {
@@ -39,7 +48,7 @@ test("Initialize RssList with no sources, rssList contains zero elements", () =>
 
   setTimeout(() => {
     expect(rssList.rssObjects.length).toBe(0);
-  }, 1000)
+  }, 1000);
 });
 
 test("Remove the last element from rssList, rssList contains zero elements", () => {
@@ -51,7 +60,7 @@ test("Remove the last element from rssList, rssList contains zero elements", () 
 
   setTimeout(() => {
     expect(rssList.rssObjects.length).toBe(0);
-  }, 1000)
+  }, 1000);
 });
 
 test("Trying to remove non-existing index, rssList remains untouched", () => {
@@ -63,7 +72,7 @@ test("Trying to remove non-existing index, rssList remains untouched", () => {
 
   setTimeout(() => {
     expect(rssList.rssObjects.length).toBe(1);
-  }, 1000)
+  }, 1000);
 });
 
 test("Remove element in the middle of rssList, correct element removed", () => {
@@ -76,5 +85,5 @@ test("Remove element in the middle of rssList, correct element removed", () => {
 
   setTimeout(() => {
     expect(rssList.rssObjects).toEqual(expected);
-  }, 1000)
+  }, 1000);
 });
