@@ -15,7 +15,7 @@ export class RssList {
   
   //Needed to be public in order for the component to react to changes in it.
   rssSources;
-  
+
   rssObjects = [];
   sortedByDate = true;
 
@@ -73,7 +73,7 @@ export class RssList {
     return result;
   };
 
-  #parseToRssObject = (itemElement) => {
+  #parseToRssObject = (xmlElement) => {
     let title = null;
     let link = null;
     let articleId = null;
@@ -81,19 +81,19 @@ export class RssList {
     let description = null;
     let imageURL = null;
 
-    for (let i = 0; i < itemElement.children.length; i++) {
-      if (itemElement.children[i].tagName == "title") {
-        title = itemElement.children[i].textContent;
-      } else if (itemElement.children[i].tagName == "link") {
-        link = itemElement.children[i].textContent;
-      } else if (itemElement.children[i].tagName == "guid") {
-        articleId = itemElement.children[i].textContent;
-      } else if (itemElement.children[i].tagName == "pubDate") {
-        pubDate = itemElement.children[i].textContent;
-      } else if (itemElement.children[i].tagName == "description") {
-        description = itemElement.children[i].textContent;
-      } else if (itemElement.children[i].tagName == "enclosure") {
-        imageURL = itemElement.children[i].attributes.url;
+    for (let i = 0; i < xmlElement.children.length; i++) {
+      if (xmlElement.children[i].tagName == "title") {
+        title = xmlElement.children[i].textContent;
+      } else if (xmlElement.children[i].tagName == "link") {
+        link = xmlElement.children[i].textContent;
+      } else if (xmlElement.children[i].tagName == "guid") {
+        articleId = xmlElement.children[i].textContent;
+      } else if (xmlElement.children[i].tagName == "pubDate") {
+        pubDate = xmlElement.children[i].textContent;
+      } else if (xmlElement.children[i].tagName == "description") {
+        description = xmlElement.children[i].textContent;
+      } else if (xmlElement.children[i].tagName == "enclosure") {
+        imageURL = xmlElement.children[i].attributes.url;
       }
     }
 
